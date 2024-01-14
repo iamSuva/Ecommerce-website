@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ddecf0;
+      margin: 0; 
+    }
+
+    .header{
+      background-image: url("/register.jpg");
+      background-repeat: no-repeat;
+      background-size:contain;
+      width: 100%;
+      height: 550px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      text-align: center;
+      color: hsl(339, 12%, 48%);
+      font-size: 50px;
+      font-weight: 800;
+    }
+
+    
+     #header_title{
+      color:#242221;
+      font-size: 40px;
+      font-weight: bolder;
+      position: absolute;
+      top:15px;
+     }
+    .mycontainer{
+      background-color: #fff;
+      margin: 10px auto 55px;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .mycontainer h1 ,h3{
+      text-align: center;
+      color: #ec7023;
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+     .card{
+      border: 1px slategray;
+      border-radius: 15px;
+      overflow: hidden;
+      background-color: aquamarine;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+     }
+     .card:hover{
+      transform: scale(1.05);
+     }
+    .card-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto;
+    }
+
+  
+    .product-card{
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      overflow: hidden;
+      background-color: rgb(132, 125, 114);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .product-card:hover {
+      transform: scale(1.05);
+    }
+
+    .product-img {
+      width: 180px;
+      height: 130px;
+      border-radius: 10%;
+      object-fit:contain;
+      background-color: #ddecf0;
+      border-bottom: 1px solid #ddd;
+    }
+    
+  </style>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+  <div class="container-fluid header" >
+    
+    <!-- <h1 id="header_title">Welcome to  E-commerce</h1> -->
+  </div>
+  
+  <div class="container mycontainer mt-3">
+   
+    <%if (locals.products.length>0){%>
+      
+      
+      <%if (locals.category ){%>
+      <h1 class="mb-4">Products 
+          In <%= category.categoryName%>
+        </h1>
+        <% }else{%>
+          <h1 class="mb-4">
+            We get some Products related to your search
+          </h1>
+          <%} %>
+      <%if (locals.products.length>0){%>
+    <div class="row row-cols-1 row-cols-md-4 g-3">
+      <% products.forEach(element => { %>
+      <div class="col">
+        <div class="product-card text-center">
+          <img src="/<%= element.productImage %>" class="product-img" alt="Product">
+          <div class="product-details">
+            <h5 class="product-title"><%= element.productName %></h5>
+            <p class="product-price">Rs:<%= element.productPrice %>/-</p>
+            <!-- <!-- <button class="btn btn-primary btn-add-to-cart">Cart</button> -->
+            <a href="/product/<%= element._id %>" class="btn btn-info btn-view">View</a>
+            <form action="/user/addtoWishlist/<%=element._id%>" method="post">
+              <button type="submit" class="btn btn-secondary btn-wishlist">Wishlist</button>              
+            </form>
+            <form action="/user/addtoCart/<%=element._id%>" method="post">
+              <button type="submit" class="btn btn-primary btn-wishlist">Cart</button>              
+            </form>
+            <!-- <a href="/user/addtoCart/<%= element._id %>" class="btn btn-info btn-view">cart</a> -->
+          </div>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+    <% } %>
+    <% }else{%>
+      <h1>No product found</h1>
+      <%}%>
+  </div>
+  
+  
+   
+  </div>
+  <%- include('partials/script') %>
+</body>
+</html>

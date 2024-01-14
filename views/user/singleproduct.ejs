@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+         <%- include('../partials/head') %>
+         <style>
+            .container {
+              margin: 20px auto;
+              padding: 20px;
+              background-color: #ffffff;
+              border-radius: 5px;
+              box-shadow: 2px 2px 2px 2px #7d7979;
+              /* text-align: center; */
+             
+            }
+          
+            h1 {
+              font-size: 24px;
+              margin-bottom: 20px;
+            }
+          
+           
+            .imgbox{
+              border-right:1px solid gray;
+               background-color: rgb(226, 216, 204);
+              padding: 25px 15px;
+              text-align: center;
+            }
+            .imgbox img{
+              border-radius: 10px;
+              width:250px;
+              height:240px;
+            }
+            /* .imgbox img:hover{
+              transform:translate(10px ,-20px)
+            } */
+            .detailsbox{
+              background-color: #ffffff;
+              /* border: 1px solid gainsboro; */
+            }
+             button{
+                width:180px;
+                display: inline-block;
+                padding: 10px 15px;
+                border-radius: 20px;
+              font-size:20px;
+              margin-bottom: 8px;
+            }
+            .cartbtn{
+              background-color: aquamarine;
+            }
+            .wishlistbtn{
+              background-color:rgb(231, 132, 202);
+              font-size: 20px;
+            }
+          </style>
+          
+    </head>
+    <body>
+        <%- include('../partials/navbar') %>
+       
+       <div class="container prod-container">
+           <div class="row">
+            <div class="col-sm-12 col-md-8 col-lg-4 imgbox">
+              <div class="">
+                <img src="/<%= data.productImage %>" alt="">
+              </div>
+
+            </div>
+            <div class="col-7 detailsbox">
+              <div class="productdetails">
+                  <div>
+                     <h1><b>
+                      <%= data.productName %>
+                     </b></h1>
+                     <h4>Rs:<%= data.productPrice %></h4>
+                     <hr>
+                     <h3><strong>Product Details : </strong></h3>
+                     <p>
+                      
+                     <%= data.productDesc %>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque rem molestias nam delectus accusamus minima dolor quo sequi aliquid facere, tenetur, est autem consectetur mollitia excepturi non perferendis sapiente qui.
+                  </p>
+                  <hr>
+                  </div>
+                  <div class="addbtn">
+                    <form action="/user/addtoWishlist/<%=data._id%>" method="post">
+                      <button class="wishlistbtn"><i class="fa-solid fa-heart"></i><span>Add to cart</span></button>
+                      </form>
+                      <form action="/user/addtoCart<%= data._id %>" method="post">
+                        <button class="cartbtn"><i class="fa-solid fa-bag-shopping"></i><span>Wishlist</span></button>
+                      </form> 
+                  </div>
+              </div>
+            </div>
+           </div>
+
+
+       </div>
+       <div class="container comment">
+          <h2>Add Product Review</h2>
+          <% if (locals.userData) { %>
+           
+            <!-- comment form will be shown olny when user is log in  -->
+          
+            <div class="container mt-2">
+                  <form action="/user/comment/<%=data._id %>" method="post">
+                 
+                  <input type="text" name="comment"class="form-control"  aria-describedby="fullnameHelp" placeholder="Enter your Comments"/>
+                  <button type="submit" class="btn btn-sm btn-info mt-2">Add</button>
+                 
+                </form>
+                </div>
+            
+            <div class="container mt-3">
+                
+                 <h1>Product reviews: <%= comments.length %></h1>
+                 <%if (comments.length>0) {%>
+                  
+                  <%comments.forEach((item)=>{%>
+                    <h3>Reviewed By : <%= item.commentedBy._username %></h3>
+                    <hr>
+                     <span><strong>Review:</strong></span>
+                    <h5><%= item.comment %></h5>
+                    <%  }) %>
+                    <% } %>
+            </div>
+           
+          <% }else{%>
+            <h1>Login to post a review</h1>
+            <%} %>
+       </div>
+        
+         <script>
+
+            //success alert
+        //  let addwishbtn=document.getElementById("addtowishbtn");
+        //  addwishbtn.onclick=async()=>{
+        //      const pid=addwishbtn.getAttribute("data-product_id");
+        //      try{
+        //         const response=await fetch(`/user/addtoWishlist/${pid}`,{
+        //           method:"POST",
+        //           headers:{
+        //             "Content-Type":"application/json"
+        //           }
+        //         });
+        //         if(response.ok)
+        //         {
+        //           alert("product is added to wishlist");
+        //           window.location.href="/user/wishlist";
+        //         }
+        //         else{
+        //           alert("failed to add");
+        //         }
+        //      }catch(err)
+        //      {
+        //       console.log(err);
+        //       alert("error occured");
+        //      }
+        //  } ;  
+         
+
+         </script>
+
+        <%- include('../partials/script') %>
+
+    </body>
+</html>

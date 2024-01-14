@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+    
+</head>
+<body>
+    <%- include('../partials/adminnavbar') %>
+<div class="container mt-3">
+    <form action="/admin/addCategory" method="post" enctype="multipart/form-data">
+         
+        <div class="mb-3">
+            <label for="categoryName" class="form-label">Category Name</label>
+            <input 
+            type="text" 
+            class="form-control"
+             id="product" name="categoryName"
+              aria-describedby="productName"/>
+
+         </div>  
+         
+         
+         <div class="mb-3">
+            <label for="productImage" class="form-label">Category iamge</label>
+            <input 
+            type="file" 
+            class="form-control"
+             id="" name="categoryImage"
+              aria-describedby="coverimage"
+              accept="iamge/*"/>
+
+         </div> 
+         <div class="mb-3">
+          <button class="btn btn-info">Add</button>
+         </div>
+    </form>
+  </div>
+<%- include("../partials/script") %>
+</body>
+</html>
+

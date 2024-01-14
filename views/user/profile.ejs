@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #b0d2db;
+      margin: 0; /* Remove default margin to ensure full-width display */
+    }
+    .profile-container{
+        background-color:#ddecf0;
+        height:400px;
+    }
+    .user-info{
+        width:100%;
+        background-color: aliceblue;
+        display: flex;
+        box-shadow: 0px 1px 1px 2px gray;
+        padding:15px 10px;
+        margin: 5px 0px;
+
+    }
+    .user-profile{
+        margin: 5px 20px ;
+       
+       
+    }
+    .user-image{
+        border-radius: 40px;
+    }
+   
+  </style>
+</head>
+<body>
+  <%- include('../partials/usernavbar') %>
+    
+    <div class="container profile-container">
+        <div class="user-info">
+            <div class="user-profile">
+                <img class="user-image" src="<%= userData.profilepic %>" alt="">
+            </div>
+            <div>
+                <h4><%=userData.username%></h4>
+                <h5><%= userData.email %></h5>
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <div class=" row others_info">
+            <div class="col-4">
+
+            </div>
+            <div class="col-8">
+                
+            </div>
+
+        </div>
+    </div> 
+
+      
+      <script>
+       
+      
+     </script>
+ <%-include('../partials/script') %>
+</body>
+</html>

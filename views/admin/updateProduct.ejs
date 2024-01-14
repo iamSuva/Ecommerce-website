@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+    
+</head>
+<body>
+    <%- include('../partials/adminnavbar') %>
+
+<div class="container mt-3">
+
+    <form action="/admin/product/update/<%=data._id %>" method="post" enctype="multipart/form-data">
+         
+        <div class="mb-3">
+            <label for="productName" class="form-label">product Name</label>
+            <input 
+            type="text" 
+            class="form-control"
+             id="product" name="productName"
+              aria-describedby="productName" value="<%= data.productName %>"/>
+ 
+         </div>  
+         <div class="mb-3">
+            <label for="productPrice" class="form-label">product price</label>
+            <input 
+            type="text" 
+            class="form-control"
+             id="product" name="productPrice"
+              aria-describedby="productName" value="<%= data.productPrice %>"/>
+
+         </div>   
+        <div class="mb-3">
+            <label for="body" class="form-label">Description</label>
+            <textarea name="productDesc"class="form-control" id="body" >
+                <%= data.productDesc %>
+            </textarea>
+         </div> 
+         <div class="mb-3">
+            <label for="productImage" class="form-label">Current Product Image</label>
+            <img src="/<%= data.productImage %>" alt="Current Image" width="200">
+         </div>   
+         <div class="mb-3">
+            <label for="productImage" class="form-label">Product iamge</label>
+            <input 
+            type="file" 
+            class="form-control"
+             id="" name="productImage"
+              aria-describedby="coverimage"/>
+
+         </div> 
+         <div class="mb-3">
+          <button class="btn btn-info">update</button>
+         </div>
+         <!-- input hidden to store the existing image -->
+         <input type="hidden" name="currentImage" value="<%=data.productImage %>">
+    </form>
+  </div>
+  
+<%- include("../partials/script") %>
+</body>
+</html>
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("../partials/head") %>
+<body>
+    <%-include("../partials/adminnavbar") %>
+    <div class="container">
+        <h3>Placed order</h3>
+        
+       <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>UserID</th>
+                    <th>OrderID</th>
+                    <th>Productdetails</th>
+                    <th>Customer-Address</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <%allorders.forEach((item)=>{%>
+                  <tr>
+                    <td><strong>
+                        <%=item.userId%>
+                    </strong></td>
+                    <td>
+                        <strong>
+
+                            <%=item._id%>
+                        </strong>
+                    </td>
+
+                    <td>
+                        <p><strong>ProductId: <%= item.orderedProductId %></strong></p>
+                      <p><strong>TotalPrice : </strong><%= item.totalPrice %></p>
+                      <p><strong>Quantity: </strong><%= item.quantity %></p>
+
+                    </td>
+                    <td>
+                        <p>
+                            <strong>Mobile : </strong><%= item.userMobile %>
+
+                        </p>
+                        <p><strong>Email: </strong>
+                         <%= item.userEmail %>
+                        </p>
+                        <p>
+                            <strong>Address:</strong> <%= item.deliveryAddress %>
+                        </p>
+                    </td>
+                  </tr>    
+                <%}) %>
+            </tbody>
+       </table>
+
+    </div>
+    <%-include("../partials/script") %>
+</body>
+</html>

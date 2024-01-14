@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ddecf0;
+      margin: 0; /* Remove default margin to ensure full-width display */
+    }
+    .product{
+      background-color: azure;
+    }
+  
+   #right{
+    background-color: bisque;
+   }
+  </style>
+</head>
+<body>
+  <%- include('../partials/usernavbar') %>
+
+<div class="container">
+     <div class="container text-center">
+      <h1>Order your favourite items here...</h1>
+     </div>
+    <div class="row product mt-3" >
+        <div class="col-5" id="left">
+          <div class="card mb-3 mt-3" style="max-width:540px;height:300px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="/<%=product.productImage%>" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h3 class="card-title"><%=product.productName%></h3>
+                  <h4 class="card-text"><%= product.productDesc %>. This content is a little bit longer.</h4>
+                  <h5 class="card-text"><small class="text-muted"><b>Price: Rs:</b><i>
+
+                    <%=product.productPrice %>
+                  </i>
+                </small></h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col m-3 p-2" id="right">
+          <form action="/user/order/<%=product.id%>" method="post">
+            <div class="mb-1">
+              <input type="hidden" name="userId" value="<%=userData._id%>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input type="hidden" name="orderedProductId" value="<%=product._id%>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-1">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" id="email" name="userEmail" class="form-control" value="<%= userData.email %>" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-1">
+              <label for="mobile" class="form-label" >Mobile</label>
+              <input type="text"  name="userMobile" maxlength="10"class="form-control" id="mobile" aria-describedby="emailHelp">
+            </div>
+           
+            <div class="mb-1">
+              <label for="quantity" class="form-label">Quantity</label>
+              <input type="number"min="1"  name="quantity" class="form-control" id="quantity" aria-describedby="quantity" value="1">
+            </div>
+            <div class="mb-1">
+              <label for="price" class="form-label">Total price</label>
+              <input type="text" readonly name="totalPrice" class="form-control" id="price" aria-describedby="totalprice" value="<%=product.productPrice%>"/>
+            </div>
+            <div class="mb-2">
+              <label for="address" class="form-label">Delivery address</label>
+              <input type="text"  name="deliveryAddress" class="form-control" id="address" aria-describedby="address"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Order Now</button>
+          </form>
+        </div>
+    </div>
+   
+</div>
+  <script>
+let qtyinput=document.getElementById("quantity");
+let priceinput=document.getElementById("price");
+  let initial=priceinput.value;
+qtyinput.addEventListener("input",()=>{
+ // alert(qtyinput.value);
+  let qty=parseInt(qtyinput.value);
+  
+  if(qty>1)
+  {
+  priceinput.value=parseInt(initial)*qty;
+  console.log(priceinput.value);
+  }else if(qty<=1){
+    priceinput.value=initial;
+  }
+  
+})
+  </script>
+ <%-include('../partials/script') %>
+</body>
+</html>

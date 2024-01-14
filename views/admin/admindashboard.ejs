@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head') %>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #ddecf0;
+        margin: 0;
+        /* Remove default margin to ensure full-width display */
+      }
+            
+     .product-table{
+       border-collapse: collapse;
+      width:100%;
+
+     }
+     .product-table ,th,td{
+      border: 1px solid gray;
+     }
+     
+      img {
+        max-width: 150px;
+        max-height: 100px;
+        display: block;
+        margin: 0 auto;
+      }
+
+      a {
+        display: block;
+        text-align: center;
+        color: #0a141b;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      a:hover {
+        color: #ff7f4f;
+      }
+    </style>
+</head>
+
+<body>
+  <%- include('../partials/adminnavbar') %>
+
+
+    <div class="container mycontainer">
+      <h1>Our Categories</h1>
+      <div class="row row-cols-1 row-cols-md-6 g-1">
+        <%categories.forEach((category)=>{%>
+          <div class="col">
+            <div class="card text-center">
+              <img src="/category/<%= category.categoryImage %>" class="card-img" alt="..." width="100px"
+                height="100px">
+              <div class="card-body">
+                <h3 class="card-title">
+                  <%= category.categoryName %>
+                    </h5>
+                    <a href="/admin/productsBycategory/<%= category._id %>">visit more</a>
+                    <!-- <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> -->
+              </div>
+            </div>
+          </div>
+          <%})%>
+      </div>
+
+
+    </div>
+ <!-- showing product for admin -->
+  <div class="container">
+    <%if (locals.products.length>0) {%>
+      
+      <h1>All products 
+        <%if (locals.category ){%>
+          In <%= category.categoryName%>
+        <% } %>
+      </h1>
+      <%if (locals.products.length>0){%>
+      <table class="table table-hover product-table" >
+        <thead>
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Product </th>
+            <th scope="col">price</th>
+            <th scope="col">Stock</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach(element => { %>
+            <tr>
+              <td>
+                <img src="/<%= element.productImage %>" alt="product" width="100px" height="80px" />
+                <a href="/admin/product/<%= element._id %>">View</a>
+              </td>
+              <td><%= element.productName %></td>
+              <td>Rs:<%= element.productPrice %>/-</td>
+              <td>15</td>
+            </tr>
+          <% }); %>
+          
+            
+         
+        </tbody>
+      </table>
+      <% }%>    
+     
+     
+ <% }else{%>
+  <h1>No product Available</h1>
+  <%}%>
+  
+  </div>
+
+
+    <%- include('../partials/script') %>
+</body>
+
+</html>
