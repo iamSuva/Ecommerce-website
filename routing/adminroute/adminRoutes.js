@@ -126,7 +126,26 @@ router.get("/allorder",async(req,res)=>{
   } catch (error) {
     console.log(error);
   }
-})
+});
+//search product by id
+router.post("/search", async (req, res) => {
+  try {
+    const { productid } = req.body;
+    console.log("req body is : "+req.body);
+ 
+    const products = await productModel.findById(productid);
+    
+    console.log("search products : " + products);
+
+    const userData = req.session.userData;
+   
+    res.render("admin/searchpage", { products, userData });
+   
+
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 
 module.exports=router;
