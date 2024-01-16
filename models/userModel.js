@@ -18,6 +18,11 @@ const adminSchema=mongoose.Schema({
     password:{
         type:String,
         
+    },
+    profileImage:{
+      type:String,
+      default:"userProfile/default.png",
+      require:false
     }
 },{timestamps:true});
 

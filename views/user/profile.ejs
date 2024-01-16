@@ -8,61 +8,116 @@
       background-color: #b0d2db;
       margin: 0; /* Remove default margin to ensure full-width display */
     }
+    .card-body{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* text-align: center; */
+    }
+    .card-body img{
+      height: 100px;
+      width: 100px;
+      border-radius:40% ;
+      object-fit: cover;
+    }
     .profile-container{
         background-color:#ddecf0;
         height:400px;
     }
-    .user-info{
-        width:100%;
-        background-color: aliceblue;
-        display: flex;
-        box-shadow: 0px 1px 1px 2px gray;
-        padding:15px 10px;
-        margin: 5px 0px;
+    #profileForm{
+      display:none ;
+    }
+    #profileForm {
+  max-width: 400px;
+  margin:20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    }
-    .user-profile{
-        margin: 5px 20px ;
-       
-       
-    }
-    .user-image{
-        border-radius: 40px;
-    }
+#cancelbtn{
+  display: none;
+}
+
+label {
+  display: block;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  padding: 10px;
+  border: 2px solid #9abfd7;
+  border-radius: 4px;
+  background-color: #2d5067;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
    
   </style>
 </head>
 <body>
   <%- include('../partials/usernavbar') %>
     
-    <div class="container profile-container">
-        <div class="user-info">
-            <div class="user-profile">
-                <img class="user-image" src="<%= userData.profilepic %>" alt="">
-            </div>
-            <div>
-                <h4><%=userData.username%></h4>
-                <h5><%= userData.email %></h5>
-            </div>
-            <div>
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-body">
+        <img src="/userProfile/<%= user.profileImage %>" class="card-img-top" alt="User Image">
+        <h5 class="card-title">Username: <%= user.username %></h5>
+        <button id="btn"onclick="openForm()">update profile</button>
+        <form id="profileForm" enctype="multipart/form-data" action="/user/profile-pic" method="post">
+          <div class="mb-3">
+            <label for="productImage" class="form-label">Profile</label>
+            <input 
+            type="file" 
+            class="form-control"
+             id="" name="profileImage"
+              aria-describedby="coverimage"/>
 
-            </div>
-        </div>
-        <div class=" row others_info">
-            <div class="col-4">
+         </div> 
+         <button type="submit">Add now</button>
+        </form>
+        <button id="cancelbtn"onclick="closeForm()">close</button>
 
-            </div>
-            <div class="col-8">
-                
-            </div>
-
-        </div>
-    </div> 
-
+      </div>
+    </div>
+   <div class="card">
+      
+   </div>
+    <!-- <form action="/profile/update" method="post" class="mt-4">
+      <div class="form-group">
+        <label for="username">Update Username:</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+      </div>
+    
+      <div class="form-group">
+        <label for="imageUrl">Update Image URL:</label>
+        <input type="text" class="form-control" id="imageUrl" name="imageUrl" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form> -->
+  </div>
       
       <script>
-       
-      
+       function openForm()
+       {
+       // alert("open");
+          let form=document.getElementById("profileForm");
+          form.style.display="inline-block";
+          document.getElementById("btn").style.display="none";
+          document.getElementById("cancelbtn").style.display="inline-block";
+        }
+        function closeForm()
+        {
+          //alert("close");
+          let form=document.getElementById("profileForm");
+          form.style.display="none";
+          document.getElementById("btn").style.display="inline-block";
+          document.getElementById("cancelbtn").style.display="none";
+       }
+        
      </script>
  <%-include('../partials/script') %>
 </body>

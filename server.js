@@ -183,7 +183,7 @@ app.post("/login", async (req, res) => {
      const { email, password } = req.body;
      try {
           const user = await UserModel.findOne({ email });
-          console.log("user found " + user);
+         // console.log("user found " + user);
           if (user) {
                if (user.password == password) {
                     // req.session.username=user.username;

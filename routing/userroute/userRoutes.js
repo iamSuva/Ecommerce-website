@@ -1,12 +1,30 @@
 const express=require("express");
 const router=express.Router();
+const multer=require("multer");
 const productModel=require("../../models/productModel");
 const categoryModel=require("../../models/categoryModel");
 const wishlistModel=require("../../models/wishlistModel");
 const cartModel=require("../../models/cartModel");
 const orderModel = require("../../models/orderModel");
 const commentModel=require("../../models/comment");
+const userModel=require("../../models/userModel");
 //user routes
+
+//
+// file upload multer
+const storage=multer.diskStorage({
+  destination:function(req,file,cb)
+  {
+      cb(null,"./public/userProfile");
+  },
+  filename:function(req,file,cb){
+      const name=`${Date.now()}-${file.originalname}`
+      cb(null,name);
+  }
+});
+const upload=multer({storage:storage});
+//
+
 router.get("/",async(req,res)=>{
   try {
     const userData = req.session.userData;
@@ -250,10 +268,23 @@ router.delete("/order/delete/:id",async(req,res)=>{
 });
 
 router.get("/profile",(req,res)=>{
-  const userData=req.session.userData;
-  res.render("user/profile.ejs",{userData})
+  console.log(req.session);
+  const user = req.session.userData;
+  console.log("profile data ",user);
+  res.render("user/profile.ejs",{user});
 })
-
+router.post("/profile-pic",upload.single("profileImage"),async(req,res)=>{
+       try{
+         console.log(req.file);
+          const profileImage=req.file.filename;
+          const userId=req.session.userData._id;
+           const updateData=await userModel.findByIdAndUpdate(userId,{profileImage:profileImage});
+          res.render("user/profile.ejs",{user:updateData});
+       }catch(err)
+       {
+        console.log(err);
+       }
+})
 
 //giving riviews
 router.post("/comment/:pid",async(req,res)=>{
