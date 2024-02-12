@@ -117,7 +117,7 @@
                  <%if (comments.length>0) {%>
                   
                   <%comments.forEach((item)=>{%>
-                    <h3>Reviewed By : <%= item.commentedBy._username %></h3>
+                    <h3>Reviewed By : <%= item.commentedBy.username %></h3>
                     <hr>
                      <span><strong>Review:</strong></span>
                     <h5><%= item.comment %></h5>

@@ -41,6 +41,7 @@ router.get("/product/:id", async (req, res) => {
   req.session.error = null;
 //  console.log("single=> " +singleproduct);
   const allcomments=await commentModel.find({productId:pid}).populate("commentedBy");
+  console.log("allcomments ",allcomments);
   console.log("comments ",allcomments);
   res.render("singleproduct", { data: singleproduct, userData: req.session.userData, error,comments:allcomments });
 });
